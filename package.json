@@ -1,0 +1,13 @@
+{
+    "name": "tech-congress-2025",
+    "version": "1.0.0",
+    "description": "Congress website with AI chatbot",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {}
+}
