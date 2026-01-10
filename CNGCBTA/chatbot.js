@@ -10,6 +10,8 @@ const GEMINI_API_URL = '/api/chat';
 let currentLang = 'es';
 let conversationHistory = [];
 
+const audioHola = document.getElementById("audioHola");
+const audioPregunta = document.getElementById("audioPregunta");
 
 
 // --- SMART FALLBACK SYSTEM (REGEX) ---
@@ -103,7 +105,22 @@ function initChatbot() {
     toggle?.addEventListener('click', () => {
         document.getElementById('chatbot-window').classList.toggle('active');
         if (document.getElementById('chatbot-window').classList.contains('active')) input?.focus();
+
+        // 🔊 AUDIO DE BENDER
+        audioHola.pause();
+        audioPregunta.pause();
+        audioHola.currentTime = 0;
+        audioPregunta.currentTime = 0;
+
+        audioHola.play();
+
+        audioHola.onended = () => {
+            setTimeout(() => {
+                audioPregunta.play();
+            }, 250);
+        };
     });
+
 
     closeBtn?.addEventListener('click', () => document.getElementById('chatbot-window').classList.remove('active'));
 
