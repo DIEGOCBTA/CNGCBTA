@@ -5,11 +5,12 @@
 class CircularGallery {
     constructor(containerId, items, options = {}) {
         this.container = document.getElementById(containerId);
-        if (!this.container) return;
+        if (!containerId) return;
 
         this.items = items;
-        this.radius = options.radius || 600;
-        this.autoRotateSpeed = options.autoRotateSpeed || 0.05;
+        this.radius = options.radius || 400;
+        this.autoRotateSpeed = options.autoRotateSpeed || 0.1;
+        this.background = options.background || null; // Reference to GalleryShaderBackground
         this.rotation = 0;
         this.isScrolling = false;
         this.scrollTimeout = null;
@@ -60,20 +61,38 @@ class CircularGallery {
     }
 
     setupEvents() {
+        const wrapper = this.container.closest('.gallery-pin-wrapper');
+        if (!wrapper) return;
+
         window.addEventListener('scroll', () => {
             this.isScrolling = true;
             if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
 
-            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollProgress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+            const rect = wrapper.getBoundingClientRect();
+            const wrapperTop = window.scrollY + rect.top;
+            const wrapperHeight = wrapper.offsetHeight;
+            const viewportHeight = window.innerHeight;
 
-            // Map scroll to 3D rotation (2 full turns over total page scroll)
-            this.rotation = scrollProgress * 720;
+            // Progress within the wrapper's scroll space
+            // 0 at the moment it enters/sticks, 1 at the moment it un-sticks
+            let progress = (window.scrollY - wrapperTop) / (wrapperHeight - viewportHeight);
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Map progress to 3D rotation (e.g., 2 full turns)
+            this.rotation = progress * 720;
+
+            // Sync with background shader
+            if (this.background && typeof this.background.updateScroll === 'function') {
+                this.background.updateScroll(progress);
+            }
 
             this.scrollTimeout = setTimeout(() => {
                 this.isScrolling = false;
             }, 150);
         }, { passive: true });
+
+        // Trigger initial update to sync background shader immediately
+        window.dispatchEvent(new Event('scroll'));
     }
 
     animate() {

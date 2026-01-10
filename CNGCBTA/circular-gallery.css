@@ -1,29 +1,44 @@
+/* Pinning Wrapper for Scroll Effect */
+.gallery-pin-wrapper {
+    height: 300vh;
+    /* Determines how long the carousel stays pinned */
+    position: relative;
+    background: #000;
+}
+
 /* Circular Gallery Styles */
 .circular-gallery-section {
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
-    height: 900px;
-    /* Reduced from 1000px as requested */
-    padding: 0;
-    overflow: hidden;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #000;
+    overflow: hidden;
+    padding-top: 80px;
+    /* Offset for the fixed navigation bar */
 }
 
-/* Premium Overlay to match Hero */
+.circular-gallery-section .section-header {
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Premium radial mask identical to hero section */
 .circular-gallery-section::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
-    z-index: 1;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 85%);
     pointer-events: none;
+    z-index: 1;
+    /* Above canvas, below content */
 }
 
 /* Visual frame matching hero styles */
@@ -37,6 +52,18 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     pointer-events: none;
     z-index: 2;
+}
+
+#circular-gallery-container {
+    width: 100%;
+    height: 550px;
+    /* Slight increase for 3D breathing room */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50px);
+    /* Nudge up to clear bottom blur */
 }
 
 .circular-gallery-stage {
@@ -61,13 +88,14 @@
 
 .circular-gallery-card {
     position: absolute;
-    width: 320px;
-    /* Bigger cards */
-    height: 440px;
+    width: 250px;
+    /* Even smaller for safety */
+    height: 360px;
+    /* Even smaller for safety */
     left: 50%;
     top: 50%;
-    margin-left: -160px;
-    margin-top: -220px;
+    margin-left: -125px;
+    margin-top: -180px;
     backface-visibility: hidden;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -75,14 +103,18 @@
 .gallery-card-content {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(245, 230, 200, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+    /* Darker and more opaque for readability */
+    backdrop-filter: blur(30px);
+    /* Increased blur */
+    border: 1px solid rgba(245, 230, 200, 0.15);
+    /* More visible border */
     border-radius: 24px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+    /* Stronger shadow */
 }
 
 .gallery-card-image-placeholder {
