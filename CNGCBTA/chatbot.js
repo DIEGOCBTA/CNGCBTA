@@ -9,9 +9,10 @@ const GEMINI_API_URL = '/api/chat';
 // Configuration
 let currentLang = 'es';
 let conversationHistory = [];
+let audioHola;
+let audioPregunta;
 
-const audioHola = document.getElementById("audioHola");
-const audioPregunta = document.getElementById("audioPregunta");
+
 
 
 // --- SMART FALLBACK SYSTEM (REGEX) ---
@@ -93,6 +94,9 @@ function loadBenderLottie(container) {
 }
 
 function initChatbot() {
+
+    audioHola = document.getElementById("audioHola");
+    audioPregunta = document.getElementById("audioPregunta");
     const toggle = document.getElementById('chatbot-toggle');
     const closeBtn = document.getElementById('chatbot-close');
     const sendBtn = document.getElementById('chatbot-send');
