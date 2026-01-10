@@ -11,6 +11,7 @@ let currentLang = 'es';
 let conversationHistory = [];
 let audioHola;
 let audioPregunta;
+let audioAdios;
 
 
 
@@ -97,6 +98,8 @@ function initChatbot() {
 
     audioHola = document.getElementById("audioHola");
     audioPregunta = document.getElementById("audioPregunta");
+    audioAdios = document.getElementById("audioAdios");
+
     const toggle = document.getElementById('chatbot-toggle');
     const closeBtn = document.getElementById('chatbot-close');
     const sendBtn = document.getElementById('chatbot-send');
@@ -107,26 +110,51 @@ function initChatbot() {
     if (welcomeAvatar) loadBenderLottie(welcomeAvatar);
 
     toggle?.addEventListener('click', () => {
-        document.getElementById('chatbot-window').classList.toggle('active');
-        if (document.getElementById('chatbot-window').classList.contains('active')) input?.focus();
+        const window = document.getElementById('chatbot-window');
+        const estabaAbierto = window.classList.contains('active');
 
-        // 🔊 AUDIO DE BENDER
-        audioHola.pause();
-        audioPregunta.pause();
-        audioHola.currentTime = 0;
-        audioPregunta.currentTime = 0;
+        window.classList.toggle('active');
 
-        audioHola.play();
+        const ahoraAbierto = window.classList.contains('active');
 
-        audioHola.onended = () => {
-            setTimeout(() => {
-                audioPregunta.play();
-            }, 250);
-        };
+        if (ahoraAbierto) {
+            // Se abrió → saludo
+            input?.focus();
+
+            audioHola.pause();
+            audioPregunta.pause();
+            audioHola.currentTime = 0;
+            audioPregunta.currentTime = 0;
+
+            audioHola.play();
+            audioHola.onended = () => {
+                setTimeout(() => {
+                    audioPregunta.play();
+                }, 250);
+            };
+        } else if (estabaAbierto && !ahoraAbierto) {
+            // Se cerró → despedida
+            audioAdios.pause();
+            audioAdios.currentTime = 0;
+            audioAdios.play();
+        }
     });
 
 
-    closeBtn?.addEventListener('click', () => document.getElementById('chatbot-window').classList.remove('active'));
+
+    closeBtn?.addEventListener('click', () => {
+        const window = document.getElementById('chatbot-window');
+
+        if (window.classList.contains('active')) {
+            window.classList.remove('active');
+
+            audioAdios.pause();
+            audioAdios.currentTime = 0;
+            audioAdios.play();
+        }
+    });
+
+
 
     sendBtn?.addEventListener('click', sendMessage);
     input?.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
