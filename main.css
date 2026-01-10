@@ -2103,3 +2103,218 @@ button {
             rgba(10, 10, 26, 0.95) 90%,
             rgba(10, 10, 26, 0.9) 100%);
 }
+
+/* ========================================
+   UNIFIED EXPERIENCE (Panels + Agenda)
+   ======================================== */
+.experience-section {
+    padding: var(--section-padding) 20px;
+    background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Event Card (Card 14 Inspiration) */
+.event-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--duration-normal) var(--ease-out);
+    position: relative;
+    backdrop-filter: blur(12px);
+    height: 100%;
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-secondary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 165, 116, 0.1);
+}
+
+.event-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.header-main {
+    flex: 1;
+}
+
+.header-main .type-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-secondary);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.header-main h2 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+.header-date {
+    text-align: right;
+    min-width: 80px;
+}
+
+.date-weekday {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+}
+
+.date-big {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+.date-big span {
+    font-size: 1.2rem;
+    margin-right: 4px;
+    color: var(--accent-primary);
+}
+
+.event-card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background: var(--bg-tertiary);
+    position: relative;
+}
+
+.event-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.event-card:hover .event-card-image img {
+    transform: scale(1.1);
+}
+
+.event-card-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.info-item svg {
+    color: var(--accent-secondary);
+    flex-shrink: 0;
+}
+
+.event-card-action {
+    margin-top: auto;
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-reminder {
+    background: transparent;
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    transition: all var(--duration-fast);
+}
+
+.btn-reminder:hover {
+    background: var(--accent-gradient);
+    color: var(--bg-primary);
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(245, 230, 200, 0.3);
+}
+
+/* History Timeline Part */
+.history-section-header {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.history-mini-timeline {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.history-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+}
+
+.history-item .year {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    margin-bottom: 8px;
+}
+
+.history-item p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}

@@ -36,14 +36,15 @@ const server = http.createServer((req, res) => {
         req.on('end', () => {
 
             const proxyReq = https.request({
-                hostname: 'diegocbta.app.n8n.cloud',
-                path: '/webhook/efe7a309-0532-4a6c-b09f-65aa0dfd9aab/chat',
+                hostname: 'drzz16.app.n8n.cloud',
+                path: '/webhook/bfce3a65-e2b7-4203-a9d9-ba4d59ce19e7/chat',
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Content-Length': Buffer.byteLength(body)
                 }
             }, (proxyRes) => {
+                console.log(`Proxy Response: ${proxyRes.statusCode}`);
                 res.writeHead(proxyRes.statusCode, proxyRes.headers);
                 proxyRes.pipe(res);
             });

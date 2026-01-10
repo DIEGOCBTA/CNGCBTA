@@ -1,0 +1,179 @@
+/* Pinning Wrapper for Scroll Effect */
+.gallery-pin-wrapper {
+    height: 300vh;
+    /* Determines how long the carousel stays pinned */
+    position: relative;
+    background: #000;
+}
+
+/* Circular Gallery Styles */
+.circular-gallery-section {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 80px;
+    /* Offset for the fixed navigation bar */
+}
+
+.circular-gallery-section .section-header {
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Premium radial mask identical to hero section */
+.circular-gallery-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 85%);
+    pointer-events: none;
+    z-index: 1;
+    /* Above canvas, below content */
+}
+
+/* Visual frame matching hero styles */
+.circular-gallery-section::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+    z-index: 2;
+}
+
+#circular-gallery-container {
+    width: 100%;
+    height: 550px;
+    /* Slight increase for 3D breathing room */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50px);
+    /* Nudge up to clear bottom blur */
+}
+
+.circular-gallery-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 3000px;
+    /* Increased for better depth and no clipping */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.circular-gallery-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.1s linear;
+}
+
+.circular-gallery-card {
+    position: absolute;
+    width: 250px;
+    /* Even smaller for safety */
+    height: 360px;
+    /* Even smaller for safety */
+    left: 50%;
+    top: 50%;
+    margin-left: -125px;
+    margin-top: -180px;
+    backface-visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-card-content {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* Darker and more opaque for readability */
+    backdrop-filter: blur(30px);
+    /* Increased blur */
+    border: 1px solid rgba(245, 230, 200, 0.15);
+    /* More visible border */
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+    /* Stronger shadow */
+}
+
+.gallery-card-image-placeholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #050505, #111);
+    color: #f5e6c8;
+    opacity: 0.6;
+    gap: 15px;
+}
+
+.gallery-card-image-placeholder span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+
+.gallery-card-info {
+    padding: 25px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: #fff;
+    text-align: center;
+}
+
+.gallery-card-info h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #f5e6c8;
+}
+
+.gallery-card-role {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.gallery-card-topic {
+    font-size: 0.9rem;
+    color: #fff;
+    font-style: italic;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+/* Background Shader Canvas */
+#gallery-bg-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}

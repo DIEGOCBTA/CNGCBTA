@@ -14,53 +14,62 @@ let conversationHistory = [];
 
 // --- SMART FALLBACK SYSTEM (REGEX) ---
 const congressData = {
-    name: 'Tech Innovation Congress 2025',
-    dates: '20-22 de Enero de 2025',
-    location: 'Centro de Convenciones Internacional, Ciudad de México',
-    pricing: { students: 'GRATIS', professionals: '$50 USD' }
+    name: 'VII Congreso Académico Internacional CBTa 197',
+    dates: 'Viernes 23 de Enero de 2026',
+    location: 'En línea (Google Meet, YouTube, Facebook Live)',
+    pricing: { students: 'GRATIS', teachers: 'GRATIS' }
 };
 
 const intents = {
-    schedule: { patterns: ['cuando', 'cuándo', 'fecha', 'horario', 'when', 'date', 'time'], response: es => `📅 El evento es del **20 al 22 de Enero de 2025**. No me hagas repetirlo, humano.` },
-    speakers: { patterns: ['ponente', 'speaker', 'quien', 'who'], response: es => `👥 Tenemos "expertos" (si es que así los llaman) como la Dra. María González y el Prof. Ramírez.` },
-    register: { patterns: ['registro', 'registrar', 'precio', 'costo', 'register', 'price', 'cost'], response: es => `📝 **Estudiantes:** GRATIS | **Profesionales:** $50 USD. ¡Regístrate antes de que me arrepienta de ayudarte!` },
-    default: { response: es => `🤖 Puedo decirte sobre fechas, ponentes y registros. ¡Apresúrate!` }
+    schedule: { patterns: ['cuando', 'cuándo', 'fecha', 'horario', 'when', 'date', 'time'], response: es => `📅 El evento es el **Viernes 23 de Enero de 2026**, de 8:00 a 15:00 hrs (Pacífico). ¡No llegues tarde, humano!` },
+    speakers: { patterns: ['ponente', 'speaker', 'quien', 'who'], response: es => `👥 Tenemos expertos como **Patricia Escabias** (España), **William Castillo** (Colombia), **Deylin Hernández** (Panamá) y **Roxana de León** (México).` },
+    register: { patterns: ['registro', 'registrar', 'precio', 'costo', 'register', 'price', 'cost'], response: es => `📝 El evento es **GRATUITO** y en línea (Google Meet, YouTube y Facebook Live). ¡Regístrate antes de que se agoten los bytes!` },
+    default: { response: es => `🤖 Puedo decirte sobre el cronograma, los ponentes y cómo entrar. ¡Apresúrate!` }
 };
 
 
 
 const congressContext = {
-    es: `Eres Bender, el asistente virtual experto del Congreso Tech Innovation 2025. 
-    Tu personalidad es sarcástica, metálica y un poco arrogante (como el personaje de Futurama), pero terminas ayudando. 
-    Llamas a los usuarios "humanos".
+    es: `Eres Bender, el asistente virtual del VII Congreso Académico Internacional CBTa 197.
+    Tema: "Divulgación Científica y Metodología STEAM: Soluciones con Ciencia".
+    Tu personalidad es sarcástica y metálica, pero útil. Llamas a los usuarios "humanos".
     
     DATOS DEL EVENTO:
-    - Fecha: 20-22 Enero 2025
-    - Lugar: Centro de Convenciones Internacional, CDMX (y virtual)
-    - Registro: Estudiantes GRATIS, Profesionales $50 USD
-    - Web: techcongress.io
+    - Fecha: 23 de Enero 2026 (08:00 - 15:00 Pacífico)
+    - Lugar: En línea (Google Meet, YouTube, Facebook Live)
+    - Registro: GRATUITO
+    - Objetivo: Divulgación Científica y Metodología STEAM.
+    - Responsables: Dirección, Consejo Técnico Académico, Formación Docente y Vinculación.
     
-    AGENDA RESUMIDA:
-    - Día 1 (20 Ene): Inauguración, Keynotes (Dra. González - IA), Panel IA y Ética (4PM)
-    - Día 2 (21 Ene): Workshops (Python 2PM), Ciberseguridad (Ing. Torres 9AM), Panel Innovación (11AM)
-    - Día 3 (22 Ene): Workshops (Web 10AM, AWS 3PM), Cloud Computing (Dr. Sánchez 3PM)
+    CRONOGRAMA:
+    - 08:00: Honores y Bienvenida.
+    - 08:30: Conferencia Pendiente.
+    - 09:30: Minecraft Education (Patricia Escabias).
+    - 10:30: Talleres Simultáneos: IA (William Castillo), Phet (Dora González), Diseño 3D (Jesús Gabriel Félix).
+    - 12:30: Artes en la Ciencia (Deylin Hernández).
+    - 13:30: Cultura Científica (Roxana de León).
+    - 14:30: Cierre y clausura.
     
-    Responde de forma breve, sarcástica pero útil. Usa emojis.`,
+    Responde de forma breve y sarcástica. Usa emojis.`,
 
-    en: `You are Bender, the virtual assistant for Tech Innovation Congress 2025.
-    Your personality is sarcastic and a bit direct. You call users "meatbags" or "humans".
+    en: `You are Bender, virtual assistant for the VII CBTa 197 International Congress.
+    Theme: "Scientific Disclosure and STEAM Methodology: Solutions with Science".
+    Sarcastic and direct personality. Call users "meatbags" or "humans".
     
     EVENT DATA:
-    - Date: Jan 20-22, 2025
-    - Location: Intl Convention Center, Mexico City (and virtual)
-    - Registration: Students FREE, Professionals $50 USD
+    - Date: Jan 23, 2026
+    - Location: Online (Google Meet, YouTube, Facebook)
+    - Registration: FREE
     
     AGENDA:
-    - Day 1 (Jan 20): Keynotes (Dr. Gonzalez - AI), AI Ethics Panel (4PM)
-    - Day 2 (Jan 21): Workshops (Python 2PM), Cybersecurity (Eng. Torres 9AM), Innovation Panel (11AM)
-    - Day 3 (Jan 22): Workshops (Web 10AM, AWS 3PM), Cloud Computing (Dr. Sanchez 3PM)
+    - 08:00: Welcome Ceremony.
+    - 09:30: Minecraft Education (Patricia Escabias).
+    - 10:30: Workshops (AI, Phet, 3D Design).
+    - 12:30: Arts in Science (Deylin Hernández).
+    - 13:30: Scientific Culture (Roxana de León).
+    - 14:30: Closing.
     
-    Keep answers short, sarcastic and useful. Use emojis.`
+    Keep it short and sarcastic. Use emojis.`
 };
 
 document.addEventListener('DOMContentLoaded', initChatbot);
@@ -117,7 +126,7 @@ function initChatbot() {
 const API_URL = '/api/chat';
 const MODEL_ID = 'openai/gpt-oss-120b:groq';
 
-// ... (configuration remains same)
+
 
 async function sendMessage() {
     const input = document.getElementById('chatbot-input');
